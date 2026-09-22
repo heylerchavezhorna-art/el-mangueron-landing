@@ -9,3 +9,10 @@ desktop.ini
 admin.html
 css/admin.css
 js/admin.js
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example

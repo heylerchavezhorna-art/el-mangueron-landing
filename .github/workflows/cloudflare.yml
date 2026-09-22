@@ -1,0 +1,21 @@
+# Despliega el sitio en Cloudflare cada vez que se hace push a main.
+# Requiere dos secretos en GitHub (Settings → Secrets and variables → Actions):
+#   CLOUDFLARE_ACCOUNT_ID  — ID de la cuenta de Cloudflare
+#   CLOUDFLARE_API_TOKEN   — token con permiso "Workers Scripts: Edit"
+name: Desplegar en Cloudflare
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy

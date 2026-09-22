@@ -1,0 +1,14 @@
+# Archivos que NO se publican en Cloudflare
+.git
+.github
+.claude
+.wrangler
+node_modules
+FOTOS
+README.md
+.gitignore
+.assetsignore
+wrangler.jsonc
+admin.html
+css/admin.css
+js/admin.js
