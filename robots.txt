@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 
-Sitemap: https://www.elmangueron.pe/sitemap.xml
+Sitemap: https://heylerchavezhorna-art.github.io/el-mangueron-landing/sitemap.xml
