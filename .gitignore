@@ -1,0 +1,6 @@
+# Archivos locales del editor / sesión
+.claude/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini

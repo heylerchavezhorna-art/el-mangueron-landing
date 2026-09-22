@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Administrar catálogo | EL MANGUERÓN</title>
+  <link rel="icon" href="assets/img/favicon-32.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <header class="admin-cab">
+    <div class="contenedor admin-cab__fila">
+      <a class="logo" href="index.html">
+        <img class="logo__img" src="assets/img/logo-sm.png" alt="EL MANGUERÓN" width="320" height="219">
+        <span class="logo__sub">Administrar catálogo</span>
+      </a>
+      <span class="estado" id="estado">Sin cambios pendientes</span>
+      <div class="admin-cab__acciones">
+        <a class="btn btn--borde btn--peq" href="index.html?preview=1#productos" target="_blank" rel="noopener">Vista previa</a>
+        <button class="btn btn--borde btn--peq" type="button" id="btn-importar">Importar archivo</button>
+        <input type="file" id="archivo-importar" accept=".js,.json" hidden>
+        <button class="btn btn--primario btn--peq" type="button" id="btn-descargar">Descargar catalogo.js</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="contenedor">
+
+    <div class="admin-aviso">
+      <strong>Cómo publicar los cambios.</strong> Este panel guarda un borrador en este navegador. Para que los clientes vean el catálogo actualizado:
+      <ol>
+        <li>Edite productos y categorías y revise con <em>Vista previa</em>.</li>
+        <li>Pulse <em>Descargar catalogo.js</em>.</li>
+        <li>Suba el archivo a la carpeta <code>js/</code> del hosting reemplazando el actual.</li>
+      </ol>
+    </div>
+
+    <div class="pestanas" role="tablist">
+      <button class="pestana" role="tab" aria-selected="true" data-panel="productos">Productos</button>
+      <button class="pestana" role="tab" aria-selected="false" data-panel="categorias">Categorías</button>
+    </div>
+
+    <!-- ========== PRODUCTOS ========== -->
+    <section class="panel activo" id="panel-productos">
+      <div class="tarjeta">
+        <div class="tarjeta__cab">
+          <h2>Productos <span class="etiqueta" id="conteo-productos"></span></h2>
+          <div class="lista-barra">
+            <input type="search" id="buscar-productos" placeholder="Buscar">
+            <select id="filtro-categoria"><option value="">Todas las categorías</option></select>
+            <button class="btn btn--primario btn--peq" type="button" id="btn-nuevo-producto">Nuevo producto</button>
+          </div>
+        </div>
+        <div class="tarjeta__cuerpo" style="padding:0; overflow-x:auto">
+          <table class="tabla">
+            <thead>
+              <tr><th></th><th>Producto</th><th>Categoría</th><th>Estado</th><th></th></tr>
+            </thead>
+            <tbody id="tabla-productos"></tbody>
+          </table>
+          <p class="vacio" id="productos-vacio" hidden>No hay productos. Cree el primero con “Nuevo producto”.</p>
+        </div>
+      </div>
+
+      <form class="tarjeta form-producto" id="form-producto" novalidate>
+        <div class="tarjeta__cab">
+          <h2 id="form-producto-titulo">Nuevo producto</h2>
+        </div>
+        <div class="tarjeta__cuerpo form">
+          <div class="campo">
+            <label for="p-nombre">Nombre</label>
+            <input id="p-nombre" name="nombre" type="text" required>
+          </div>
+          <div class="campo--doble">
+            <div class="campo">
+              <label for="p-id">Identificador</label>
+              <input id="p-id" name="id" type="text" required pattern="[a-z0-9-]+">
+              <small>Solo minúsculas, números y guiones. Se genera del nombre.</small>
+            </div>
+            <div class="campo">
+              <label for="p-categoria">Categoría</label>
+              <select id="p-categoria" name="categoria" required></select>
+            </div>
+          </div>
+          <div class="campo--doble">
+            <div class="campo">
+              <label for="p-marca">Marca</label>
+              <input id="p-marca" name="marca" type="text">
+            </div>
+            <div class="campo">
+              <label for="p-imagen">URL de la imagen</label>
+              <input id="p-imagen" name="imagen" type="url" placeholder="https://… o assets/img/productos/archivo.webp">
+              <small>Si queda vacío se muestra una imagen genérica de la categoría.</small>
+              <div class="vista-imagen" id="p-vista"></div>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="p-descripcion">Descripción</label>
+            <textarea id="p-descripcion" name="descripcion" rows="4"></textarea>
+          </div>
+          <div class="campo">
+            <label>Especificaciones técnicas</label>
+            <div class="specs-editor" id="specs-editor"></div>
+            <div><button class="btn btn--borde btn--peq" type="button" id="btn-agregar-spec" style="margin-top:0.5rem">Agregar especificación</button></div>
+          </div>
+          <div class="campo--doble">
+            <div class="campo campo--check">
+              <input id="p-destacado" name="destacado" type="checkbox">
+              <label for="p-destacado">Destacado (aparece primero)</label>
+            </div>
+            <div class="campo campo--check">
+              <input id="p-activo" name="activo" type="checkbox" checked>
+              <label for="p-activo">Visible en el sitio</label>
+            </div>
+          </div>
+          <div class="form__pie">
+            <button class="btn btn--primario" type="submit">Guardar producto</button>
+            <button class="btn btn--borde" type="button" id="btn-cancelar-producto">Cancelar</button>
+            <span class="separador"></span>
+            <button class="btn btn--peligro" type="button" id="btn-eliminar-producto" hidden>Eliminar</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- ========== CATEGORÍAS ========== -->
+    <section class="panel" id="panel-categorias">
+      <div class="tarjeta">
+        <div class="tarjeta__cab">
+          <h2>Categorías <span class="etiqueta" id="conteo-categorias"></span></h2>
+          <button class="btn btn--primario btn--peq" type="button" id="btn-nueva-categoria">Nueva categoría</button>
+        </div>
+        <div class="tarjeta__cuerpo" style="padding:0; overflow-x:auto">
+          <table class="tabla">
+            <thead>
+              <tr><th></th><th>Categoría</th><th>Productos</th><th></th></tr>
+            </thead>
+            <tbody id="tabla-categorias"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <form class="tarjeta" id="form-categoria" novalidate>
+        <div class="tarjeta__cab">
+          <h2 id="form-categoria-titulo">Nueva categoría</h2>
+        </div>
+        <div class="tarjeta__cuerpo form">
+          <div class="campo">
+            <label for="c-nombre">Nombre</label>
+            <input id="c-nombre" name="nombre" type="text" required>
+          </div>
+          <div class="campo">
+            <label for="c-id">Identificador</label>
+            <input id="c-id" name="id" type="text" required pattern="[a-z0-9-]+">
+            <small>Solo minúsculas, números y guiones. Se genera del nombre.</small>
+          </div>
+          <div class="campo">
+            <label for="c-descripcion">Descripción</label>
+            <textarea id="c-descripcion" name="descripcion" rows="3"></textarea>
+          </div>
+          <div class="campo">
+            <label for="c-imagen">URL de la imagen</label>
+            <input id="c-imagen" name="imagen" type="url">
+            <div class="vista-imagen" id="c-vista"></div>
+          </div>
+          <div class="form__pie">
+            <button class="btn btn--primario" type="submit">Guardar categoría</button>
+            <button class="btn btn--borde" type="button" id="btn-cancelar-categoria">Cancelar</button>
+            <span class="separador"></span>
+            <button class="btn btn--peligro" type="button" id="btn-eliminar-categoria" hidden>Eliminar</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <p style="font-size:var(--t-xs); color:var(--gris-600); padding-bottom:2rem">
+      <button class="btn btn--borde btn--peq" type="button" id="btn-restablecer">Descartar borrador y volver al catálogo publicado</button>
+    </p>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/catalogo.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
