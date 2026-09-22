@@ -8,7 +8,7 @@ Es un sitio **estático** (HTML, CSS y JavaScript sin dependencias ni proceso de
 
 ```
 index.html          Página principal (Inicio, Nosotros, Productos, Servicios, Marcas, Sectores, Contacto, Pie)
-admin.html          Panel para administrar el catálogo (no enlazado desde el sitio)
+admin.html          Panel para administrar el catálogo (solo local, excluido del repositorio)
 css/styles.css      Estilos del sitio
 css/admin.css       Estilos del panel
 js/config.js        Datos de la empresa: WhatsApp, teléfonos, correo, dirección, horario
@@ -33,7 +33,7 @@ Los mismos datos deben actualizarse una vez en `index.html` dentro del bloque `a
 
 ## Cómo administrar el catálogo
 
-1. Abra `admin.html` en el navegador (localmente o en el hosting).
+1. Abra `admin.html` en el navegador (está solo en la carpeta local del proyecto; no se sube a GitHub ni al sitio publicado).
 2. Cree, edite, duplique u oculte productos y categorías. Cada producto tiene nombre, categoría, marca, descripción, imagen y una lista de especificaciones técnicas (nombre/valor) que se muestran como ficha en el sitio.
 3. Pulse **Vista previa** para ver el borrador en el sitio (`index.html?preview=1`).
 4. Pulse **Descargar catalogo.js** y suba el archivo a la carpeta `js/` del hosting reemplazando el actual. Desde ese momento todos los visitantes ven el catálogo nuevo.
@@ -48,12 +48,7 @@ El borrador se guarda en el navegador donde se editó (localStorage). **Importar
 
 ### Protección del panel
 
-`admin.html` no tiene contraseña: no modifica nada en el servidor por sí mismo (solo genera un archivo para descargar), pero conviene que no sea público. Opciones:
-
-- No subirlo al hosting y usarlo solo en la computadora de la empresa.
-- Protegerlo con contraseña en el hosting (en cPanel: *Privacidad de directorios*; en Netlify/Vercel: reglas de acceso).
-
-`robots.txt` ya indica a los buscadores que no lo indexen.
+`admin.html`, `css/admin.css` y `js/admin.js` están excluidos del repositorio mediante `.gitignore`: viven solo en la computadora de la empresa. Guarde una copia de respaldo de esos tres archivos; si se pierden, no se pueden recuperar desde GitHub.
 
 ## Marcas, fotos y textos
 

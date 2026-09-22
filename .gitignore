@@ -4,3 +4,8 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Panel de administración del catálogo: solo uso local, no se publica
+admin.html
+css/admin.css
+js/admin.js
