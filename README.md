@@ -78,13 +78,14 @@ y visite `http://localhost:8080`.
 
 El sitio se publica automáticamente en dos lugares con cada `git push` a `main`:
 
-- **GitHub Pages**: https://heylerchavezhorna-art.github.io/el-mangueron-landing/
-- **Cloudflare**: https://el-mangueron.web-store.workers.dev (mediante `.github/workflows/cloudflare.yml`; necesita los secretos `CLOUDFLARE_ACCOUNT_ID` y `CLOUDFLARE_API_TOKEN` en el repositorio). Despliegue manual desde la PC: `npx wrangler deploy`.
+- **Dominio propio**: https://elmangueron.pe (servido por Cloudflare)
+- **GitHub Pages** (espejo): https://heylerchavezhorna-art.github.io/el-mangueron-landing/
+- **Cloudflare** (URL interna): https://el-mangueron.web-store.workers.dev (mediante `.github/workflows/cloudflare.yml`; necesita los secretos `CLOUDFLARE_ACCOUNT_ID` y `CLOUDFLARE_API_TOKEN` en el repositorio). Despliegue manual desde la PC: `npx wrangler deploy`.
 
 `wrangler.jsonc` define el proyecto y `.assetsignore` la lista de archivos que no se publican (panel, fotos originales, README).
 
 Después de publicar:
 
-1. El sitio está publicado en GitHub Pages: https://heylerchavezhorna-art.github.io/el-mangueron-landing/ (se actualiza solo con cada `git push` a `main`). Si se compra un dominio propio, configúrelo en *Settings → Pages → Custom domain* y reemplace esa URL por el dominio en `index.html`, `robots.txt` y `sitemap.xml`.
+1. El dominio `elmangueron.pe` está registrado en punto.pe (vence el 24/09/2028) con los DNS delegados a Cloudflare. El correo `@elmangueron.pe` lo gestiona Zoho Mail (MX, SPF, DKIM y DMARC ya configurados en Cloudflare).
 2. Registre el sitio en Google Search Console y envíe `sitemap.xml`.
 3. Cree el perfil de Google Business con la misma dirección y teléfono.

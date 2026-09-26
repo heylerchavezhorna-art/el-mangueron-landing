@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://heylerchavezhorna-art.github.io/el-mangueron-landing/sitemap.xml
+Sitemap: https://elmangueron.pe/sitemap.xml
